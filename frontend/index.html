@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OSINT Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">◈</span>
+        <span class="brand-name">RECON<span class="brand-accent">/</span>DASH</span>
+      </div>
+      <nav class="nav">
+        <button class="nav-item active" data-view="scan">
+          <span class="nav-icon">⌕</span> Investigate
+        </button>
+        <button class="nav-item" data-view="history">
+          <span class="nav-icon">◷</span> History
+        </button>
+      </nav>
+      <div class="sidebar-footer">
+        <div class="api-status" id="apiStatus">
+          <span class="dot dot-pending"></span> Checking API…
+        </div>
+        <p class="disclaimer">Publicly available sources only. No exploitation, credential attacks, or unauthorized access.</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <!-- SCAN VIEW -->
+      <section id="view-scan" class="view active">
+        <header class="topbar">
+          <div>
+            <h1>Investigate a Target</h1>
+            <p class="subtitle">Domain · IP address · URL · Email address</p>
+          </div>
+        </header>
+
+        <form id="scanForm" class="scan-form">
+          <input
+            type="text"
+            id="targetInput"
+            placeholder="example.com · 8.8.8.8 · https://example.com · user@example.com"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button type="submit" id="scanBtn" class="btn-primary">
+            <span class="btn-label">Investigate</span>
+          </button>
+        </form>
+        <div id="formError" class="form-error hidden"></div>
+
+        <div id="emptyState" class="empty-state">
+          <div class="empty-glyph">◎</div>
+          <h2>No investigation yet</h2>
+          <p>Enter a target above to gather intelligence from public sources.</p>
+        </div>
+
+        <div id="loadingState" class="loading-state hidden">
+          <div class="scanner-bar"><div class="scanner-fill"></div></div>
+          <p id="loadingText">Querying public sources…</p>
+        </div>
+
+        <div id="results" class="results hidden">
+          <div class="results-header">
+            <div>
+              <h2 id="resultTarget">—</h2>
+              <span id="resultType" class="badge-type">—</span>
+              <span id="resultTimestamp" class="result-timestamp"></span>
+            </div>
+            <button id="exportBtn" class="btn-secondary">Export Report</button>
+          </div>
+
+          <div id="findingsSection" class="card">
+            <h3 class="card-title">Findings Summary</h3>
+            <div id="findingsList" class="findings-list"></div>
+            <p class="card-note">This is an automated heuristic summary, not a definitive security verdict.</p>
+          </div>
+
+          <div id="sectionsGrid" class="sections-grid"></div>
+        </div>
+      </section>
+
+      <!-- HISTORY VIEW -->
+      <section id="view-history" class="view">
+        <header class="topbar">
+          <div>
+            <h1>Investigation History</h1>
+            <p class="subtitle">Stored locally on this server</p>
+          </div>
+          <button id="clearHistoryBtn" class="btn-secondary">Clear History</button>
+        </header>
+        <div id="historyList" class="history-list"></div>
+        <div id="historyEmpty" class="empty-state hidden">
+          <div class="empty-glyph">◷</div>
+          <h2>No investigations yet</h2>
+          <p>Completed investigations will appear here.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <template id="tpl-section-card">
+    <div class="card section-card">
+      <h3 class="card-title"></h3>
+      <div class="card-body"></div>
+    </div>
+  </template>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

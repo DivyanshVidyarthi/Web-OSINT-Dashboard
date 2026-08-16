@@ -1,0 +1,15 @@
+services:
+  osint-dashboard:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "8000:8000"
+    env_file:
+      - backend/.env
+    volumes:
+      - osint_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  osint_data:
