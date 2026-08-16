@@ -1,4 +1,4 @@
-# OSINT Dashboard (MVP)
+# OSINT Dashboard
 
 A publicly-deployable OSINT aggregation dashboard for cybersecurity research
 and reconnaissance. Given a **domain, IP address, URL, or email address**,
